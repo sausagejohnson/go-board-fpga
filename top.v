@@ -1,4 +1,5 @@
 `include "segment-block.v"
+`include "character-segment-block.v"
 
 module top 
     (
@@ -21,7 +22,7 @@ module top
     );
 
     reg [6:0] segmentABits;// = 7'b1100000;
-    reg [6:0] segmentBBits;// = 7'b0000011;
+    reg [7:0] segmentBBits;// = "F";
 
     BitSelectSegments SegmentA 
     (
@@ -35,9 +36,10 @@ module top
         .segLED_G(o_Segment1_G)
     );
 
-    BitSelectSegments SegmentB
+    CharacterSelectSegments SegmentB
     (
-        .i_bitselect(segmentBBits),
+        .i_Clk(i_Clk),
+        .i_charselect(segmentBBits),
         .segLED_A(o_Segment2_A),
         .segLED_B(o_Segment2_B),
         .segLED_C(o_Segment2_C),
@@ -51,13 +53,13 @@ module top
 
     always @(posedge i_Clk)
         begin
-            if (i_Switch_1 == 0'b1)
+            if (i_Switch_1 == 1'b1)
                 begin
-                    segmentABits <= 7'b1110000; 
+                    segmentBBits <= "i"; 
                 end
             else
                 begin
-                    segmentABits <= 7'b0000111; 
+                    segmentBBits <= "1"; 
                 end
         end
 
