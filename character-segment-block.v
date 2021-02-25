@@ -5,7 +5,6 @@
 
 module CharacterSelectSegments
     (
-        input i_Clk,
         input [7:0] i_charselect,
         output segLED_A,
         output segLED_B,
@@ -18,7 +17,7 @@ module CharacterSelectSegments
 
     reg [7:0] outputBits = 8'b00000000;
 
-    always @ (posedge i_Clk)
+    always @ (i_charselect)
         begin
             outputBits = 8'b00000000;
             case (i_charselect)

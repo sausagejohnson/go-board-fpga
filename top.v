@@ -38,7 +38,6 @@ module top
 
     CharacterSelectSegments SegmentB
     (
-        .i_Clk(i_Clk),
         .i_charselect(segmentBBits),
         .segLED_A(o_Segment2_A),
         .segLED_B(o_Segment2_B),
