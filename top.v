@@ -1,5 +1,6 @@
 `include "segment-block.v"
 `include "character-segment-block.v"
+`include "debounce-input.v"
 
 module top 
     (
@@ -61,5 +62,14 @@ module top
                     segmentBBits <= "N"; 
                 end
         end
+
+    reg r_debouncedSwitch = 1'b0;
+
+    DebounceInput debouncer
+    (
+        .i_Clk(i_Clk),
+        .i_Signal(i_Switch_1),
+        .o_DebouncedSignal(r_debouncedSwitch)
+    );
 
 endmodule
