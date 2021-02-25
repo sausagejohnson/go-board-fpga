@@ -55,11 +55,11 @@ module top
         begin
             if (i_Switch_1 == 1'b1)
                 begin
-                    segmentBBits <= "i"; 
+                    segmentBBits <= "n"; 
                 end
             else
                 begin
-                    segmentBBits <= "1"; 
+                    segmentBBits <= "N"; 
                 end
         end
 

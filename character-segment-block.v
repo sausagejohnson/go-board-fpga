@@ -18,37 +18,82 @@ module CharacterSelectSegments
 
     reg [7:0] outputBits = 8'b00000000;
 
-
-    /*
-        Not working out. Read up at: https://www.verilogpro.com/verilog-case-casez-casex/
-    */
     always @ (posedge i_Clk)
         begin
             outputBits = 8'b00000000;
             case (i_charselect)
-                "A", "C", "E", "F", "g", "G", "N", "O", "p", "P", "q", "S", "Z", "2", "3", "5", "6", "7", "8", "9", "0": //top
-                    outputBits[6] <= 1'b1;
-                "A", "B", "d", "H", "I", "j", "J", "N", "O", "p", "P", "q", "U", "Y", "Z", "1", "2", "3", "4", "7", "8", "9", "0": //top-right
-                    outputBits[5] <= 1'b1;
-                "A", "B", "b", "d", "g", "g", "h", "H", "i", "I", "j", "J", "N", "n", "o", "O", "q", "S", "u", "U", "Y", "1", "3", "4", "5", "6", "7", "8", "9", "0": //bottom-right
-                    outputBits[4] <= 1'b1;
-                "b", "B", "c", "C", "d", "E", "g", "G", "j", "J", "L", "o", "O", "S", "u", "U", "Y", "Z", "2", "3", "5", "6", "8", "9", "0": //bottom
-                    outputBits[3] <= 1'b1;
-                "A", "b", "B", "c", "C", "d", "E", "F", "G", "h", "H", "i", "I", "j", "J", "l", "L", "n", "N", "o", "O", "p", "P", "r", "u", "U", "Z", "2", "6", "8", "0": //bottom-left
-                    outputBits[2] <= 1'b1;
-                "A", "b", "B", "C", "E", "F", "g", "G", "h", "H", "l", "L", "N", "O", "p", "P", "q", "S", "U", "Y", "4", "5", "6", "8", "9", "0": //top-left
-                    outputBits[1] <= 1'b1;
-                "A", "b", "B", "c", "d", "E", "F", "G", "h", "H", "p", "P", "q", "r", "S", "Y", "Z", "2", "3", "4", "5", "6", "8", "9": //middle
-                    outputBits[0] <= 1'b1;
+                "A":
+                    outputBits = 7'b1110111;
+                "b":
+                    outputBits = 7'b0011111;
+                "B", "8":
+                    outputBits = 7'b1111111;
+                "c":
+                    outputBits = 7'b0001101;
+                "C":
+                    outputBits = 7'b1001110;
+                "d":
+                    outputBits = 7'b0011101;
+                "E":
+                    outputBits = 7'b1001111;
+                "F":
+                    outputBits = 7'b1000111;
+                "g", "9":
+                    outputBits = 7'b1011010;
+                "G":
+                    outputBits = 7'b1001111;
+                "h":
+                    outputBits = 7'b0010111;
+                "H":
+                    outputBits = 7'b0110111;
+                "i":
+                    outputBits = 7'b0010000;
+                "I", "1":
+                    outputBits = 7'b0110000;
+                "j":
+                    outputBits = 7'b0111100;
+                "J":
+                    outputBits = 7'b1111100;
+                "l": 
+                    outputBits = 7'b0000110;
+                "L": 
+                    outputBits = 7'b0001110;
+                "n":
+                    outputBits = 7'b0010101;
+                "N":
+                    outputBits = 7'b1110110;
+                "o":
+                    outputBits = 7'b0011101;
+                "O", "0":
+                    outputBits = 7'b1111110;
+                "p", "P":
+                    outputBits = 7'b1100111;
+                "q":
+                    outputBits = 7'b1110011;
+                "r":
+                    outputBits = 7'b0000101;
+                "s", "S", "5":
+                    outputBits = 7'b1011011;
+                "u":
+                    outputBits = 7'b0011100;
+                "U":
+                    outputBits = 7'b0111110;
+                "Y":
+                    outputBits = 7'b0111011;
+                "Z", "2":
+                    outputBits = 7'b1101101;
+                "3":
+                    outputBits = 7'b1111001;
+                "4":
+                    outputBits = 7'b0110011;
+                "6":
+                    outputBits = 7'b1011111;
+                "7":
+                    outputBits = 7'b1110000;
                 default:
-                    begin
-                        outputBits[6] <= 1'b1;
-                        outputBits[3] <= 1'b1;
-                        outputBits[0] <= 1'b1;
-                    end
+                    outputBits = 7'b1001001;
             endcase
         end
-
 
     assign segLED_A = ~outputBits[6]; //segment A (top)
     assign segLED_B = ~outputBits[5]; //segment B
