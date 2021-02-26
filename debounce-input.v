@@ -1,11 +1,11 @@
 module DebounceInput
+    #(parameter integer THRESHOLD = 1000000) //default 1000000 ticks of settle time.
     (
         input i_Clk,
         input i_Signal,
-        output reg o_DebouncedSignal
+        output o_DebouncedSignal
     );
 
-    localparam integer THRESHOLD = 100000;
     reg [31:0] count = 0;
     reg lastSignal = 0;
     reg r_DebouncedSignal = 1'b0;
