@@ -1,6 +1,7 @@
 `include "segment-block.v"
 `include "character-segment-block.v"
 `include "debounce-input.v"
+`include "character-segment-driver.v"
 
 module top 
     (
@@ -19,7 +20,8 @@ module top
         output o_Segment2_E,
         output o_Segment2_F,
         output o_Segment2_G,
-        input i_Switch_1
+        input i_Switch_1,
+        input i_Switch_4
     );
 
     reg [6:0] segmentABits;// = 7'b1100000;
@@ -49,27 +51,26 @@ module top
         .segLED_G(o_Segment2_G)
     );
 
-    //assign o_Segment1_G = test;
+
+    CharacterSegmentDriver CharacterDriver
+    (
+        .i_Clk(i_Clk),
+        .i_Switch(i_Switch_4),
+        .o_Character(segmentBBits)
+    );
 
     always @(posedge i_Clk)
         begin
-            if (i_Switch_1 == 1'b1)
-                begin
-                    segmentBBits <= "n"; 
-                end
-            else
-                begin
-                    segmentBBits <= "N"; 
-                end
+            w_Character <= segmentBBits;
         end
 
-    reg r_debouncedSwitch = 1'b0;
+    /*wire r_debouncedSwitch;
 
     DebounceInput debouncer
     (
         .i_Clk(i_Clk),
         .i_Signal(i_Switch_1),
         .o_DebouncedSignal(r_debouncedSwitch)
-    );
+    );*/
 
 endmodule

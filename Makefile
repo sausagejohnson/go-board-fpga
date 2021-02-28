@@ -1,4 +1,4 @@
-MODULE_FILE_TO_TEST = debounce-input
+MODULE_FILE_TO_TEST = character-segment-driver
 
 build:
 	yosys -s yosys-script.txt
