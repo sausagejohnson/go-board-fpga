@@ -24,12 +24,13 @@ module top
         input i_Switch_4
     );
 
-    reg [6:0] segmentABits;// = 7'b1100000;
-    reg [7:0] segmentBBits;// = "F";
+    reg [6:0] r_segmentABits;
+    reg [7:0] r_segmentBBits;
+    wire [7:0] w_segmentBBits;
 
     BitSelectSegments SegmentA 
     (
-        .i_bitselect(segmentABits),
+        .i_bitselect(r_segmentABits),
         .segLED_A(o_Segment1_A),
         .segLED_B(o_Segment1_B),
         .segLED_C(o_Segment1_C),
@@ -41,7 +42,7 @@ module top
 
     CharacterSelectSegments SegmentB
     (
-        .i_charselect(segmentBBits),
+        .i_charselect(w_segmentBBits),
         .segLED_A(o_Segment2_A),
         .segLED_B(o_Segment2_B),
         .segLED_C(o_Segment2_C),
@@ -51,26 +52,20 @@ module top
         .segLED_G(o_Segment2_G)
     );
 
-
-    CharacterSegmentDriver CharacterDriver
-    (
-        .i_Clk(i_Clk),
-        .i_Switch(i_Switch_4),
-        .o_Character(segmentBBits)
-    );
-
-    always @(posedge i_Clk)
-        begin
-            w_Character <= segmentBBits;
-        end
-
-    /*wire r_debouncedSwitch;
+    wire w_debouncedSwitch;
 
     DebounceInput debouncer
     (
         .i_Clk(i_Clk),
-        .i_Signal(i_Switch_1),
-        .o_DebouncedSignal(r_debouncedSwitch)
-    );*/
+        .i_Signal(i_Switch_4),
+        .o_DebouncedSignal(w_debouncedSwitch)
+    );
+
+    CharacterSegmentDriver CharacterDriver
+    (
+        .i_Clk(i_Clk),
+        .i_Switch(w_debouncedSwitch),
+        .o_Character(w_segmentBBits)
+    );
 
 endmodule

@@ -9,7 +9,7 @@ module CharacterSegmentDriver
     (
         input i_Clk,
         input i_Switch,
-        output reg [31:0] o_Character = 8'b00000000
+        output reg [7:0] o_Character = 8'b00000000
     );
 
     reg r_lastSwitch = 1'b0;
