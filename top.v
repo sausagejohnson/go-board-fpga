@@ -2,6 +2,7 @@
 `include "character-segment-block.v"
 `include "debounce-input.v"
 `include "character-segment-driver.v"
+`include "vgaprocessor.v"
 
 module top 
     (
@@ -21,7 +22,12 @@ module top
         output o_Segment2_F,
         output o_Segment2_G,
         input i_Switch_1,
-        input i_Switch_4
+        input i_Switch_4,
+        output o_VGA_Red_0,
+        output o_VGA_Red_1,
+        output o_VGA_Red_2,
+        output o_VGA_HSync,
+        output o_VGA_VSync
     );
 
     reg [6:0] r_segmentABits;
@@ -67,5 +73,19 @@ module top
         .i_Switch(w_debouncedSwitch),
         .o_Character(w_segmentBBits)
     );
+
+    wire w_colourPin;
+
+    VgaProcessor redVgaProcessor
+    (
+        .i_Clk(i_Clk),
+        .o_HSync(o_HSync),
+        .o_VSync(o_VSync),
+        .o_Colour_On(w_colourPin)
+    );
+
+    assign o_Red_Pin_1 = w_colourPin; //set all colour red pins to highest red for every pixel in the 640x480 displayable range
+    assign o_Red_Pin_2 = w_colourPin;
+    assign o_Red_Pin_3 = w_colourPin;
 
 endmodule
