@@ -79,13 +79,13 @@ module top
     VgaProcessor redVgaProcessor
     (
         .i_Clk(i_Clk),
-        .o_HSync(o_HSync),
-        .o_VSync(o_VSync),
+        .o_HSync(o_VGA_HSync),
+        .o_VSync(o_VGA_VSync),
         .o_Colour_On(w_colourPin)
     );
 
-    assign o_Red_Pin_1 = w_colourPin; //set all colour red pins to highest red for every pixel in the 640x480 displayable range
-    assign o_Red_Pin_2 = w_colourPin;
-    assign o_Red_Pin_3 = w_colourPin;
+    assign o_VGA_Red_0 = w_colourPin; //set all colour red pins to highest red for every pixel in the 640x480 displayable range
+    assign o_VGA_Red_1 = w_colourPin;
+    assign o_VGA_Red_2 = w_colourPin;
 
 endmodule

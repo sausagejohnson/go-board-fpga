@@ -1,4 +1,4 @@
-MODULE_FILE_TO_TEST = character-segment-driver
+MODULE_FILE_TO_TEST = top
 
 build:
 	yosys -s yosys-script.txt
