@@ -3,7 +3,9 @@ module VgaProcessor
         input i_Clk,
         output reg o_HSync = 0,
         output reg o_VSync = 0,
-        output reg o_Colour_On = 0
+        output reg [2:0] o_Red_Colour_On = 3'b000,
+        output reg [2:0] o_Green_Colour_On = 3'b000,
+        output reg [2:0] o_Blue_Colour_On = 3'b000
     );
 
     localparam TOTAL_WIDTH = 800;
@@ -69,13 +71,24 @@ module VgaProcessor
     //Colour On/Off
     always @(posedge i_Clk)
         begin
-          if ((r_HPos >= 50 & r_HPos < 690) & (r_VPos >= 33 & r_VPos < 513)) // ACTIVE_WIDTH & r_VPos < ACTIVE_HEIGHT)
+          if ((r_HPos >= 50 & r_HPos < 690) & (r_VPos >= 33 & r_VPos < 513)) 
             begin
-                o_Colour_On = 1'b1;
+                if (r_VPos < 400)
+                  begin
+                    o_Red_Colour_On = 3'b101;
+                    o_Blue_Colour_On = 3'b111;
+                  end
+                else
+                  begin
+                    o_Red_Colour_On = 3'b111;
+                    o_Blue_Colour_On = 3'b000;
+                  end
+
             end
           else
             begin
-                o_Colour_On = 1'b0;
+                o_Red_Colour_On = 3'b000;
+                o_Blue_Colour_On = 3'b000;
             end  
         end
 
