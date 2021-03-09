@@ -1,3 +1,5 @@
+`include "vga-bars.v"
+
 module VgaProcessor
     (
         input i_Clk,
@@ -16,9 +18,9 @@ module VgaProcessor
     localparam V_SYNC_LINE = 523;
 
     reg [11:0] r_HPos = 0;
-    reg [11:0] r_VPos = 0;
+    reg signed [11:0] r_VPos = 0;
 
-    reg r_newFrame = 1'b0;
+    reg r_NewFrame = 1'b0; //flagged when a new frame can be drawn. Update params here.
 
     //step pixel position throughout the screen
     always @(posedge i_Clk)
@@ -68,19 +70,41 @@ module VgaProcessor
             end  
         end
 
+    always @(posedge i_Clk)
+        begin
+          if (r_HPos == 0 & r_VPos == 0)
+              begin
+                r_NewFrame <= 1'b1;
+              end
+          else
+              begin
+                r_NewFrame <= 1'b0;
+              end
+        end
+
+    wire signed [8:0] w_SineAbsoluteYPos;
+
+    VgaBars vgaBars 
+    (
+        .i_NewFrameTick(r_NewFrame),
+        .o_VerticalSplitLine(w_SineAbsoluteYPos)
+    );
+
     //Colour On/Off
     always @(posedge i_Clk)
         begin
           if ((r_HPos >= 50 & r_HPos < 690) & (r_VPos >= 33 & r_VPos < 513)) 
             begin
-                if (r_VPos < 400)
+                if (r_VPos < (w_SineAbsoluteYPos + 273)) //273 is midpoint in 480 pixel y-range
                   begin
-                    o_Red_Colour_On = 3'b101;
+                    o_Red_Colour_On = 3'b010;
+                    o_Green_Colour_On = 3'b010;
                     o_Blue_Colour_On = 3'b111;
                   end
                 else
                   begin
                     o_Red_Colour_On = 3'b111;
+                    o_Green_Colour_On = 3'b100;
                     o_Blue_Colour_On = 3'b000;
                   end
 
@@ -88,6 +112,7 @@ module VgaProcessor
           else
             begin
                 o_Red_Colour_On = 3'b000;
+                o_Green_Colour_On = 3'b000;
                 o_Blue_Colour_On = 3'b000;
             end  
         end
