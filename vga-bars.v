@@ -4,12 +4,13 @@
 */
 
 module VgaBars
+    #(parameter integer delayedTicks = 0)
     (
         input i_NewFrameTick,
         output reg signed [8:0] o_VerticalSplitLine = 9'b000000000
     );
 
-    reg [7:0] r_index = 8'b00000000;
+    reg [7:0] r_index = delayedTicks;
     reg signed [8:0] a_sineTable [0:119]; //memory for sine table lookups -200 to 200
 
     always @(posedge i_NewFrameTick)

@@ -82,12 +82,25 @@ module VgaProcessor
               end
         end
 
-    wire signed [8:0] w_SineAbsoluteYPos;
-
-    VgaBars vgaBars 
+    wire signed [8:0] w_OrangeBarYPos;
+    VgaBars #(0) vgaOrangeBar
     (
         .i_NewFrameTick(r_NewFrame),
-        .o_VerticalSplitLine(w_SineAbsoluteYPos)
+        .o_VerticalSplitLine(w_OrangeBarYPos)
+    );
+
+    wire signed [8:0] w_PaleBarYPos;
+    VgaBars #(15) vgaPaleBar
+    (
+        .i_NewFrameTick(r_NewFrame),
+        .o_VerticalSplitLine(w_PaleBarYPos)
+    );
+
+    wire signed [8:0] w_LimeBarYPos;
+    VgaBars #(30) vgaLimeBar
+    (
+        .i_NewFrameTick(r_NewFrame),
+        .o_VerticalSplitLine(w_LimeBarYPos)
     );
 
     //Colour On/Off
@@ -95,17 +108,33 @@ module VgaProcessor
         begin
           if ((r_HPos >= 50 & r_HPos < 690) & (r_VPos >= 33 & r_VPos < 513)) 
             begin
-                if (r_VPos < (w_SineAbsoluteYPos + 273)) //273 is midpoint in 480 pixel y-range
-                  begin
-                    o_Red_Colour_On = 3'b010;
-                    o_Green_Colour_On = 3'b010;
-                    o_Blue_Colour_On = 3'b111;
-                  end
-                else
+                if (r_VPos > (w_OrangeBarYPos + 263)
+                    & r_VPos < (w_OrangeBarYPos + 293))
+                    //273 is midpoint in 480 pixel y-range
                   begin
                     o_Red_Colour_On = 3'b111;
                     o_Green_Colour_On = 3'b100;
                     o_Blue_Colour_On = 3'b000;
+                  end
+                else if (r_VPos > (w_PaleBarYPos + 263)
+                    & r_VPos < (w_PaleBarYPos + 293))
+                  begin
+                    o_Red_Colour_On = 3'b011;
+                    o_Green_Colour_On = 3'b011;
+                    o_Blue_Colour_On = 3'b111;
+                  end
+                else if (r_VPos > (w_LimeBarYPos + 263)
+                    & r_VPos < (w_LimeBarYPos + 293))
+                  begin
+                    o_Red_Colour_On = 3'b010;
+                    o_Green_Colour_On = 3'b101;
+                    o_Blue_Colour_On = 3'b011;
+                  end
+                else //default blue background
+                  begin
+                    o_Red_Colour_On = 3'b001;
+                    o_Green_Colour_On = 3'b001;
+                    o_Blue_Colour_On = 3'b010;
                   end
 
             end
