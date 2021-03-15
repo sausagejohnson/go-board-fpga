@@ -1,4 +1,4 @@
-MODULE_FILE_TO_TEST = pmod-dac
+MODULE_FILE_TO_TEST = counter-segments-driver
 
 build:
 	yosys -s yosys-script.txt
