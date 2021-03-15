@@ -106,7 +106,7 @@ module VgaProcessor
     //Colour On/Off
     always @(posedge i_Clk)
         begin
-          if ((r_HPos >= 50 & r_HPos < 690) & (r_VPos >= 33 & r_VPos < 513)) 
+          if ((r_HPos >= 48 & r_HPos < 688) & (r_VPos >= 33 & r_VPos < 513)) 
             begin
                 if (r_VPos > (w_OrangeBarYPos + 263)
                     & r_VPos < (w_OrangeBarYPos + 293))

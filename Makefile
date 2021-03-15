@@ -1,4 +1,4 @@
-MODULE_FILE_TO_TEST = top
+MODULE_FILE_TO_TEST = pmod-dac
 
 build:
 	yosys -s yosys-script.txt

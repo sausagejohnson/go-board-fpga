@@ -3,6 +3,7 @@
 `include "debounce-input.v"
 `include "character-segment-driver.v"
 `include "vgaprocessor.v"
+`include "pmod-dac.v"
 
 module top 
     (
@@ -33,7 +34,15 @@ module top
         output o_VGA_Blu_1,
         output o_VGA_Blu_2,
         output o_VGA_HSync,
-        output o_VGA_VSync
+        output o_VGA_VSync,
+        output io_PMOD_1,
+        output io_PMOD_2,
+        output io_PMOD_3,
+        output io_PMOD_4,
+        output io_PMOD_7,
+        output io_PMOD_8,
+        output io_PMOD_9,
+        output io_PMOD_10
     );
 
     reg [6:0] r_segmentABits;
@@ -103,5 +112,20 @@ module top
     assign o_VGA_Blu_0 = w_blueColourPin[0]; 
     assign o_VGA_Blu_1 = w_blueColourPin[1];
     assign o_VGA_Blu_2 = w_blueColourPin[2];
+
+    reg [7:0] dacByte = 8'b10100111;
+
+    PModDAC dac
+    (
+        .i_byte(dacByte),
+        .o_PMOD_1(io_PMOD_1), //MSB
+        .o_PMOD_2(io_PMOD_2),
+        .o_PMOD_3(io_PMOD_3),
+        .o_PMOD_4(io_PMOD_4),
+        .o_PMOD_7(io_PMOD_5),
+        .o_PMOD_8(io_PMOD_6),
+        .o_PMOD_9(io_PMOD_7),
+        .o_PMOD_10(io_PMOD_8)  //LSB
+    );
 
 endmodule
