@@ -1,4 +1,4 @@
-`include "segment-block.v"
+//`include "segment-block.v"
 //`include "character-segment-block.v"
 `include "debounce-input.v"
 //`include "character-segment-driver.v"
@@ -50,29 +50,29 @@ module top
     reg [7:0] r_segmentBBits;
     wire [7:0] w_segmentBBits;
 
-    BitSelectSegments SegmentA 
-    (
-        .i_bitselect(r_segmentABits),
-        .segLED_A(o_Segment1_A),
-        .segLED_B(o_Segment1_B),
-        .segLED_C(o_Segment1_C),
-        .segLED_D(o_Segment1_D),
-        .segLED_E(o_Segment1_E),
-        .segLED_F(o_Segment1_F),
-        .segLED_G(o_Segment1_G)
-    );
+    // BitSelectSegments SegmentA 
+    // (
+    //     .i_bitselect(r_segmentABits),
+    //     .segLED_A(o_Segment1_A),
+    //     .segLED_B(o_Segment1_B),
+    //     .segLED_C(o_Segment1_C),
+    //     .segLED_D(o_Segment1_D),
+    //     .segLED_E(o_Segment1_E),
+    //     .segLED_F(o_Segment1_F),
+    //     .segLED_G(o_Segment1_G)
+    // );
 
-    BitSelectSegments SegmentB
-    (
-        .i_bitselect(r_segmentABits),
-        .segLED_A(o_Segment1_A),
-        .segLED_B(o_Segment1_B),
-        .segLED_C(o_Segment1_C),
-        .segLED_D(o_Segment1_D),
-        .segLED_E(o_Segment1_E),
-        .segLED_F(o_Segment1_F),
-        .segLED_G(o_Segment1_G)
-    );
+    // BitSelectSegments SegmentB
+    // (
+    //     .i_bitselect(r_segmentABits),
+    //     .segLED_A(o_Segment1_A),
+    //     .segLED_B(o_Segment1_B),
+    //     .segLED_C(o_Segment1_C),
+    //     .segLED_D(o_Segment1_D),
+    //     .segLED_E(o_Segment1_E),
+    //     .segLED_F(o_Segment1_F),
+    //     .segLED_G(o_Segment1_G)
+    // );
 
     // CharacterSelectSegments SegmentB
     // (

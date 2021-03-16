@@ -31,8 +31,8 @@ module CharacterSelectSegments
                     outputBits = 7'b0001101;
                 "C":
                     outputBits = 7'b1001110;
-                "d":
-                    outputBits = 7'b0011101;
+                "d", "D":
+                    outputBits = 7'b0111101;
                 "E":
                     outputBits = 7'b1001111;
                 "F":

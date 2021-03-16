@@ -20,7 +20,7 @@ module top_tb;
 
     initial
     begin
-      #81750000;// #2500000
+      #2500
       $finish;
     end
 
