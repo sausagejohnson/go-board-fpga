@@ -1,4 +1,5 @@
-MODULE_FILE_TO_TEST = counter-segments-driver
+MODULE_FILE_TO_TEST = top
+#counter-segments-driver
 
 build:
 	yosys -s yosys-script.txt

@@ -21,53 +21,42 @@ module CounterSegmentsDriver
         output segLED_2D,
         output segLED_2E,
         output segLED_2F,
-        output segLED_2G
+        output segLED_2G,
+        output reg [7:0] r_counter = 8'b00000000
     );
-
-    //reg r_hold = 1'b0;
-    reg [7:0] r_counter = 8'b00000000;
 
     reg [7:0] charA = "0"; //A is on the left
     reg [7:0] charB = "0"; //B is on the right
 
-
     always @(posedge i_debouncedSignal)
         begin
-            //if (i_debouncedSignal == 1'b1 & r_hold == 1'b0)
-                //begin
-                    //r_hold = 1'b1;
-                    if (r_counter > 255)
-                        begin
-                            r_counter <= 0;
-                        end
-                    else
-                        begin
-                            r_counter <= r_counter + 1;
-                        end
+            if (r_counter > 255)
+                begin
+                    r_counter <= 0;
+                end
+            else
+                begin
+                    r_counter <= r_counter + 1;
+                end
 
-                    if (r_counter[3:0] <= 9 ) 
-                        begin
-                            charB = r_counter[3:0] + 48;
-                        end
-                    else
-                        begin
-                            charB = r_counter[3:0] + 55;
-                        end
+            if (r_counter[3:0] <= 9 ) 
+                begin
+                    charB = r_counter[3:0] + 48;
+                end
+            else
+                begin
+                    charB = r_counter[3:0] + 55;
+                end
 
-                    if (r_counter[7:4] <= 9 ) 
-                        begin
-                            charA = r_counter[7:4] + 48;
-                        end
-                    else
-                        begin
-                            charA = r_counter[7:4] + 55;
-                        end
+            if (r_counter[7:4] <= 9 ) 
+                begin
+                    charA = r_counter[7:4] + 48;
+                end
+            else
+                begin
+                    charA = r_counter[7:4] + 55;
+                end
                 
-                //end
-            //if (i_debouncedSignal == 1'b0)
-                //begin
-                //    r_hold = 1'b0;
-                //end
         end
     
     CharacterSelectSegments segLED_A

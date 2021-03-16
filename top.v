@@ -102,6 +102,8 @@ module top
     //     .o_Character(w_segmentBBits)
     // );
 
+    wire [7:0] w_dacByte;
+
     CounterSegmentsDriver driver
     (
         .i_debouncedSignal(w_debouncedSwitch),
@@ -118,7 +120,8 @@ module top
         .segLED_2D(o_Segment2_D),
         .segLED_2E(o_Segment2_E),
         .segLED_2F(o_Segment2_F),
-        .segLED_2G(o_Segment2_G)
+        .segLED_2G(o_Segment2_G),
+        .r_counter(w_dacByte)
     );
 
     wire [2:0] w_redColourPin;
@@ -145,19 +148,19 @@ module top
     assign o_VGA_Blu_1 = w_blueColourPin[1];
     assign o_VGA_Blu_2 = w_blueColourPin[2];
 
-    reg [7:0] dacByte = 8'b10100111;
+    //wire [7:0] w_dacByte; = 8'b10100111;
 
     PModDAC dac
     (
-        .i_byte(dacByte),
+        .i_byte(w_dacByte),
         .o_PMOD_1(io_PMOD_1), //MSB
         .o_PMOD_2(io_PMOD_2),
         .o_PMOD_3(io_PMOD_3),
         .o_PMOD_4(io_PMOD_4),
-        .o_PMOD_7(io_PMOD_5),
-        .o_PMOD_8(io_PMOD_6),
-        .o_PMOD_9(io_PMOD_7),
-        .o_PMOD_10(io_PMOD_8)  //LSB
+        .o_PMOD_7(io_PMOD_7),
+        .o_PMOD_8(io_PMOD_8),
+        .o_PMOD_9(io_PMOD_9),
+        .o_PMOD_10(io_PMOD_10)  //LSB
     );
 
 endmodule

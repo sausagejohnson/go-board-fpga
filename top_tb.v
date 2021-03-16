@@ -4,19 +4,28 @@
 module top_tb;
 
     reg r_Clk = 1'b0;
+    reg r_switch = 1'b0;
 
-    always #1 r_Clk <= !r_Clk;
+    always
+      begin 
+        #1 
+        r_Clk <= !r_Clk;
+        r_switch = ~r_switch;
+      end
 
     top MyTop
     (
-        .i_Clk(r_Clk)
+        .i_Clk(r_Clk),
+        .i_Switch_4(r_switch)
     );
 
     initial 
-    begin
+      begin
         $dumpfile("top_tb.lxt");
-		$dumpvars(0,top_tb);
-    end
+        $dumpvars(0,top_tb);
+      end
+
+    
 
     initial
     begin
